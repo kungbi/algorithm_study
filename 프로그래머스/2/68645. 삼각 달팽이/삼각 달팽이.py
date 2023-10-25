@@ -31,10 +31,4 @@ def solution(n):
         x, y, dir = next_pos(map, x, y, dir, n)
         map[y][x] = i
 
-    result = []
-    for i in map:
-        result += i
-    return result
-
-
-print(solution(6))
+    return sum(map, [])
