@@ -1,2 +1,1 @@
-# Programmers
-Algorithm
+완료한 프로그래머스와 백준문제 저장소
