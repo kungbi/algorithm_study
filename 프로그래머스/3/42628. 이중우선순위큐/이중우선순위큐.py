@@ -13,14 +13,17 @@ def solution(operations):
             heappush(maxheap, -n)
             heappush(minheap, n)
         elif oper == 'D' and maxheap and minheap:
-            if n == 1:
-                num = -heappop(maxheap)
-                if num in minheap:
-                    minheap.remove(num)
-            elif n == -1:
-                num = heappop(minheap)
-                if num in maxheap:
-                    maxheap.remove(num)
+            if n == 1: # pop max
+                heappop(maxheap)
+                if not maxheap or -maxheap[0] < minheap[0]:
+                    maxheap = []
+                    minheap = []
+            elif n == -1: # pop min
+                heappop(minheap)
+                if not minheap or minheap[0] > -maxheap[0]:
+                    maxheap = []
+                    minheap = []
+                
     if maxheap and minheap:
         return(-maxheap[0], minheap[0])
     return ([0, 0])
