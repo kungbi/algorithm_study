@@ -3,22 +3,23 @@ from heapq import heappush
 
 
 def solution(jobs):
-    result = 0
-    i = curr_time = 0
-    start = -1
-    queue = []
+    jobs.sort(key=lambda x: x[0], reverse=True)
 
-    while i < len(jobs):
-        for job in jobs:
-            if start < job[0] <= curr_time:
-                heappush(queue, [job[1], job[0]])
+    job_len = len(jobs)
+    result = completed_job_cnt = 0
+    queue = []
+    curr_time = 0
+    while completed_job_cnt < job_len:
+        while jobs and jobs[-1][0] <= curr_time:
+            job = jobs.pop()
+            heappush(queue, (job[1], job[0]))
 
         if queue:
             job_size, job_start_time = heappop(queue)
-            start = curr_time
             curr_time += job_size
             result += curr_time - job_start_time
-            i += 1
+            completed_job_cnt += 1
         else:
             curr_time += 1
-    return result // len(jobs)
+
+    return result // job_len
