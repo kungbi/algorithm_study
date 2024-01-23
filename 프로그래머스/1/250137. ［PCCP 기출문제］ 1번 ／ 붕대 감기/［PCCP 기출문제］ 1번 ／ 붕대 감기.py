@@ -1,12 +1,14 @@
+from collections import deque
+
 def solution(bandage, health, attacks):
-    attacks.reverse()
+    attacks = deque(attacks)
     
     t = 0
     max_health = health
     heal_cnt = damage_cnt = attack_damage = 0
     while 0 < health and attacks:
-        if attacks[-1][0] == t:
-            attack_damage = attacks.pop()[1]
+        if attacks[0][0] == t:
+            attack_damage = attacks.popleft()[1]
             health -= attack_damage
             heal_cnt = 0
         else:
