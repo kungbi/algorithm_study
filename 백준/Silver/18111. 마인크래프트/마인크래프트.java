@@ -1,5 +1,4 @@
 import java.io.*;
-import java.util.*;
 
 public class Main{
 
@@ -18,32 +17,34 @@ public class Main{
             }
         }
 
-        int time, height, tmp, f1, f2, b_copy;
-        int result_time = Integer.MAX_VALUE, result_height = 0;
-        for (height = 0; height <= 256; height++) {
-            f1 = 0;
-            f2 = 0;
-            b_copy = b;
-            for (int y = 0; y < n; y++) {
-                for (int x = 0; x < m; x++) {
-                    tmp = Math.abs(map[y][x] - height);
-                    if (height < map[y][x]) {
+        int resultTime = Integer.MAX_VALUE;
+        int resultHeight = 0;
+        
+        for (int height = 0; height <= 256; height++) {
+            int f1 = 0;
+            int f2 = 0;
+            int b_copy = b;
+
+            for (int[] row : map) {
+                for (int value : row) {
+                    int tmp = Math.abs(value - height);
+                    if (height < value) {
                         f1 += tmp;
                         b_copy += tmp;
-                    } else if (map[y][x] < height) {
+                    } else if (value < height) {
                         f2 += tmp;
                     }
                 }
             }
             if (b_copy < f2) continue;
 
-            time = f1 * 2 + f2;
-            if (time <= result_time) {
-                result_time = time;
-                result_height = height;
+            int time = f1 * 2 + f2;
+            if (time <= resultTime) {
+                resultTime = time;
+                resultHeight = height;
             }
         }
 
-        System.out.printf("%d %d\n", result_time, result_height);
+        System.out.printf("%d %d\n", resultTime, resultHeight);
     }
 }
