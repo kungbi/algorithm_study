@@ -12,16 +12,16 @@ public class Main {
         while (start <= end) {
             mid = (start + end) / 2;
             if (d.equals("start")) {
-                if (dots[mid] < num) {
-                    start = mid + 1;
-                } else {
+                if (num <= dots[mid]) {
                     end = mid - 1;
+                } else {
+                    start = mid + 1;
                 }
             } else {
-                if (dots[mid] > num) {
-                    end = mid - 1;
-                } else {
+                if (dots[mid] <= num) {
                     start = mid + 1;
+                } else {
+                    end = mid - 1;
                 }
             }
         }
