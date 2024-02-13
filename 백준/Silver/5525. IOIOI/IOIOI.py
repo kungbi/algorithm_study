@@ -5,27 +5,20 @@ def input():
 def solution():
     n = int(input())
     m = int(input())
-    arr = list(input())
+    arr = input()
 
-    dp = [0]
-    if arr[0] == 'I' and arr[1] == 'O' and arr[2] == 'I':
-        dp[0] = 1
-    else:
-        dp[0] = 0
-
-    i = 1
+    i = 0
+    dp = 0
+    result = 0
     while i < m - 2:
-        if arr[i] == 'I' and arr[i + 1] == 'O' and arr[i + 2] == 'I':
-            dp.append(dp[-1] + 1)
+        if arr[i:i + 3] == "IOI":
+            dp += 1
             i += 1
         else:
-            dp.append(0)
-        i += 1
-
-    result = 0
-    for num in dp:
-        if n <= num:
+            dp = 0
+        if n <= dp:
             result += 1
+        i += 1
     print(result)
 
 solution()
