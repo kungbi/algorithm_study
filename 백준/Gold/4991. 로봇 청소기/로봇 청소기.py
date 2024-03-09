@@ -118,9 +118,6 @@ def solution():
 
         dirty_visited = [False] * map_info["dirty_cnt"]
         start_dirty_dis = calc_dirty_dis(arr, map_info["start"], dirty_pos2map)
-        # if map_info["dirty_cnt"] != len(start_dirty_dis):
-        #     print(-1)
-        #     return
 
         for pos in start_dirty_dis:
             dirty_visited[pos[0]] = True
