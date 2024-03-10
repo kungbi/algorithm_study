@@ -5,9 +5,8 @@ def input():
     return sys.stdin.readline().rstrip()
 
 
-dxs = [-1, 0, 1, 0]
-dys = [0, -1, 0, 1]
-
+dxs = [0, 0, -1, 1]
+dys = [-1, 1, 0, 0]
 
 def is_frame(x, y):
     return 0 <= x < c and 0 <= y < r
