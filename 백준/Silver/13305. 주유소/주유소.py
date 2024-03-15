@@ -7,20 +7,17 @@ def input():
 
 def solution():
     n = int(input())
-    dist = [0] + list(map(int, input().split()))
+    dist = list(map(int, input().split()))
     price = list(map(int, input().split()))
 
-    money = 0
-    for i in range(n - 1):
-        next_dist = dist[i + 1]
-        if i != 0:
-            if price[i - 1] * next_dist < price[i] * next_dist:
-                money += price[i - 1] * next_dist
-            else:
-                money += next_dist * price[i]
-        else:
-            money += next_dist * price[i]
+    min_price = float("inf")
 
+    money = 0
+    i = 0
+    while i < n - 1:
+        min_price = min(min_price, price[i])
+        money += dist[i] * min_price
+        i += 1
     print(money)
 
 
