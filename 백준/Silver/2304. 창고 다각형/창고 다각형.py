@@ -23,7 +23,6 @@ def solution():
     left_i = max_l - 1
     right_i = max_l + 1
 
-    # print()
     for h in range(max_h, -1, -1):
         left_i_tmp = 0
         right_i_tmp = 1000
@@ -35,8 +34,6 @@ def solution():
         # right_i에서 오른쪽으로 탐색
         while right_i <= right_i_tmp and arr[h][right_i_tmp] != 1:
             right_i_tmp -= 1
-
-        # print(left_i_tmp, right_i_tmp)
 
         # 만약 발견하면 해당 높이에서 발견한 위치의 곱을 더하기
         if left_i_tmp <= left_i:
