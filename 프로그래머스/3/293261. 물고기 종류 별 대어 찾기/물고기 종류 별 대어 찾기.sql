@@ -1,0 +1,7 @@
+SELECT  info.ID AS ID, name.FISH_NAME, info.LENGTH
+FROM    FISH_INFO info JOIN FISH_NAME_INFO name ON info.FISH_TYPE = name.FISH_TYPE
+WHERE   info.LENGTH = (
+    SELECT  MAX(LENGTH)
+    FROM    FISH_INFO tmp
+    WHERE   info.FISH_TYPE = tmp.FISH_TYPE
+)
