@@ -1,0 +1,7 @@
+SELECT      info.FOOD_TYPE, info.REST_ID, info.REST_NAME, info.FAVORITES
+FROM        REST_INFO info JOIN (
+    SELECT      info2.FOOD_TYPE, MAX(info2.FAVORITES) AS MAXFAV
+    FROM        REST_INFO info2
+    GROUP BY    info2.FOOD_TYPE
+)info2   ON info.FOOD_TYPE = info2.FOOD_TYPE AND info.FAVORITES = info2.MAXFAV
+ORDER BY    info.FOOD_TYPE DESC
