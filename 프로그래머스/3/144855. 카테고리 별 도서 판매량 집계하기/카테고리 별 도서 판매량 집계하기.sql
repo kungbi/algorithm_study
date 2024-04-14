@@ -1,0 +1,5 @@
+SELECT      book.CATEGORY, SUM(sales.SALES) AS SALES
+FROM        BOOK book JOIN BOOK_SALES sales ON book.BOOK_ID = sales.BOOK_ID
+WHERE       YEAR(sales.SALES_DATE) = "2022" AND MONTH(sales.SALES_DATE) = "1"
+GROUP BY    book.CATEGORY
+ORDER BY    book.CATEGORY
