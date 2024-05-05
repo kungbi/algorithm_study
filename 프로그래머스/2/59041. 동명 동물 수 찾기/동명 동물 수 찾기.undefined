@@ -1,0 +1,6 @@
+SELECT      outter.NAME, COUNT(*) as COUNT
+FROM        ANIMAL_INS outter
+WHERE       outter.NAME IS NOT NULL
+GROUP BY    outter.NAME
+HAVING      2 <= COUNT
+ORDER BY    outter.NAME
