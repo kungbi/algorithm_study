@@ -7,7 +7,7 @@ def is_frame(x, y, m, n):
     return 0 <= x < m and 0 <= y < n
 
 def f(grid, start, i):
-    global dict
+    global dict, visited
     
     n = len(grid)
     m = len(grid[0])
@@ -35,9 +35,12 @@ def f(grid, start, i):
             elif n <= ny:
                 ny = 0
         
-        if dict[(x, y, nx, ny, d)] == True:
+        # if dict[(x, y, nx, ny, d)] == True:
+        #     break
+        # dict[(x, y, nx, ny, d)] = True
+        if visited[x][y][d] == True:
             break
-        dict[(x, y, nx, ny, d)] = True
+        visited[x][y][d] = True
         x, y = nx, ny
         
     if x == start[0] and y == start[1]:
@@ -47,11 +50,12 @@ def f(grid, start, i):
     
 
 def solution(grid):
-    global dict
+    global dict, visited
     
     n = len(grid)
     m = len(grid[0])
     dict = defaultdict(bool)
+    visited = [[[0] * 4 for _ in range(500)] for _ in range(500)]
     
     answer = []
     for y in range(n):
