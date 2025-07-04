@@ -1,6 +1,4 @@
 import sys
-from heapq import heappush
-from heapq import heappop
 
 
 def input():
@@ -10,40 +8,37 @@ def input():
 def main():
     n = int(input())
     buildings = list(map(int, input().split()))
-    answers = [[0, -1] for _ in range(n)]
+    answers = [[0, float("inf")] for _ in range(n)]
 
-    heap = []
-    for idx, hight in enumerate(buildings):
-        while heap and heap[0][0] <= hight:
-            heappop(heap)
-        answers[idx][0] += len(heap)
+    stack = []
+    for i in range(n):
+        hight = buildings[i]
+        while stack and stack[-1][0] <= hight:
+            stack.pop()
 
-        if heap and answers[idx][1] == -1:
-            answers[idx][1] = heap[0]
-        elif heap:
-            if abs(idx - heap[0][1]) < abs(idx - answers[idx][1][1]):
-                answers[idx][1] = heap[0]
+        answers[i][0] += len(stack)
+        if stack and abs(stack[-1][1] - i) < abs(answers[i][1] - i):
+            answers[i][1] = stack[-1][1]
+        if stack and abs(stack[-1][1] - i) == abs(answers[i][1] - i):
+            answers[i][1] = min(answers[i][1], stack[-1][1])
+        stack.append((hight, i))
 
-        heappush(heap, (hight, idx))
+    stack = []
+    for i in range(n - 1, -1, -1):
+        hight = buildings[i]
+        while stack and stack[-1][0] <= hight:
+            stack.pop()
 
-    heap = []
-    for idx in range(n - 1, -1, -1):
-        hight = buildings[idx]
-        while heap and heap[0][0] <= hight:
-            heappop(heap)
-        answers[idx][0] += len(heap)
-
-        if heap and answers[idx][1] == -1:
-            answers[idx][1] = heap[0]
-        elif heap:
-            if abs(idx - heap[0][1]) < abs(idx - answers[idx][1][1]):
-                answers[idx][1] = heap[0]
-
-        heappush(heap, (hight, idx))
+        answers[i][0] += len(stack)
+        if stack and abs(stack[-1][1] - i) < abs(answers[i][1] - i):
+            answers[i][1] = stack[-1][1]
+        if stack and abs(stack[-1][1] - i) == abs(answers[i][1] - i):
+            answers[i][1] = min(answers[i][1], stack[-1][1])
+        stack.append((hight, i))
 
     for answer in answers:
-        if answer[0]:
-            print(answer[0], answer[1][1] + 1)
+        if answer[0] != 0:
+            print(answer[0], answer[1] + 1)
         else:
             print(0)
 
