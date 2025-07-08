@@ -1,41 +1,49 @@
 import sys
-from collections import defaultdict
-from copy import deepcopy
 
 
 def input():
     return sys.stdin.readline().rstrip()
 
 
-def f(coin_list, total):
-    total //= 2
-    dp = [True] + [False] * total
-    for C, N in coin_list:
-        for i in range(total, C - 1, -1):
-            if not dp[i - C]:
+def get_sum(coins):
+    result = 0
+    for coin, count in coins:
+        result += coin * count
+    return result
+
+
+def solution(coins):
+    total = get_sum(coins)
+    if total % 2 == 1:
+        return 0
+
+    dp = [False] * (total // 2 + 1)
+    dp[0] = True
+    for coin, count in coins:
+        for i in range(total // 2, -1, -1):
+            if i - coin < 0:
+                continue
+            if dp[i - coin] == False:
                 continue
 
-            for j in range(N + 1):
-                if i + C * j <= total:
-                    dp[i + C * j] = True
-        if dp[-1]:
-            return 1
+            for j in range(count):
+                if len(dp) <= i + coin * j:
+                    continue
+                dp[i + coin * j] = True
+
+    if dp[total // 2]:
+        return 1
     return 0
 
 
-def solution():
+def main():
+
     for _ in range(3):
         n = int(input())
-        coin_list = []
-        total = 0
-        for _ in range(n):
-            coin, cnt = map(int, input().split())
-            coin_list.append((coin, cnt))
-            total += coin * cnt
-        if total % 2 != 0:
-            print(0)
-        else:
-            print(f(coin_list, total))
+        coins = [tuple(map(int, input().split())) for _ in range(n)]
+        coins.sort(reverse=True)
+
+        print(solution(coins))
 
 
-solution()
+main()
